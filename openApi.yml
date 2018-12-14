@@ -1,0 +1,456 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Auction System
+  description: Simple Auction System
+  contact:
+    name: "mult_420"
+    email: "mult_420@gmail.com"
+servers:
+  - url: http://localhost:8080/v1
+paths:
+  /login:
+    post:
+      summary: Login by providing email address
+      operationId: findByEmail
+      tags:
+        - Login
+      requestBody:
+        description: Email is the only required key
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: A JWT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users:
+    get:
+      summary: List all Users
+      operationId: userGetAll
+      tags:
+        - Users
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a User
+      operationId: userCreate
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users/{UserId}:
+    get:
+      summary: Info for a specific User
+      operationId: userFindById
+      tags:
+        - Users
+      parameters:
+        - name: UserId
+          in: path
+          required: true
+          description: The id of the User to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      summary: Update Info for a specific User
+      operationId: userPatchById
+      tags:
+        - Users
+      parameters:
+        - name: UserId
+          in: path
+          required: true
+          description: The id of the User to update
+          schema:
+            type: string
+      requestBody:
+        description: Only updates the properties that are passed via the request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '204':
+          description: Null Response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete a specific User
+      operationId: userDeleteById
+      tags:
+        - Users
+      parameters:
+        - name: UserId
+          in: path
+          required: true
+          description: The id of the User to delete
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Null Response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /auctions:
+    get:
+      summary: List all Auctions
+      operationId: auctionGetAll
+      tags:
+        - Auctions
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Auctions"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create an Auction
+      operationId: auctionCreate
+      tags:
+        - Auctions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuctionInput'
+      responses:
+        '201':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /auctions/{AuctionId}:
+    get:
+      summary: Info for a specific Auction
+      operationId: auctionFindById
+      tags:
+        - Auctions
+      parameters:
+        - name: AuctionId
+          in: path
+          required: true
+          description: The id of the Auction to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Auction"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      summary: Update Info for a specific Auction
+      operationId: auctionPatchById
+      tags:
+        - Auctions
+      parameters:
+        - name: AuctionId
+          in: path
+          required: true
+          description: The id of the Auction to update
+          schema:
+            type: string
+      requestBody:
+        description: Only updates the properties that are passed via the request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuctionInput'
+      responses:
+        '204':
+          description: Null Response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete a specific Auction
+      operationId: auctionDeleteById
+      tags:
+        - Auctions
+      parameters:
+        - name: AuctionId
+          in: path
+          required: true
+          description: The id of the Auction to delete
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Null Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Auction"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /auctions/{AuctionId}/bid:
+    post:
+      summary: Bid on an auction
+      operationId: auctionBid
+      tags:
+        - Auctions
+      parameters:
+        - name: AuctionId
+          in: path
+          required: true
+          description: The id of the Auction to bid on
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BidInput'
+      responses:
+        '201':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+security:
+  - JWT: []
+components:
+  securitySchemes:
+    JWT:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    User:
+      required:
+        - email
+        - firstName
+        - lastName
+        - age
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: integer
+        createdBy:
+          type: integer
+        updatedBy:
+          type: integer
+        updatedAt:
+            type: string
+            format: dateTime
+        createdAt:
+          type: string
+          format: dateTime
+    UserInput:
+      required:
+        - email
+        - firstName
+        - lastName
+        - age
+      properties:
+        email:
+          type: string
+          format: email
+        firstName:
+          type: string
+        lastName:
+          type: string
+        age:
+          type: integer
+    Users:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+    Auction:
+      required:
+        - name
+        - description
+        - location
+        - endTime
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        desscription:
+          type: string
+        location:
+          type: string
+        endTime:
+          type: string
+          format: dateTime
+        createdBy:
+          type: integer
+        updatedBy:
+          type: integer
+        updatedAt:
+            type: string
+            format: dateTime
+        createdAt:
+          type: string
+          format: dateTime
+        bids:
+          type: array
+          items:
+            $ref: "#/components/schemas/Bid"
+    AuctionInput:
+      required:
+        - name
+        - description
+        - location
+        - endTime
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        desscription:
+          type: string
+        location:
+          type: string
+        endTime:
+          type: string
+          format: dateTime
+    Auctions:
+      type: array
+      items:
+        $ref: "#/components/schemas/Auction"
+    Bid:
+      required:
+        - amount
+      properties:
+        amount:
+          type: integer
+        auctionId:
+          type: integer
+        createdBy:
+          type: integer
+        updatedBy:
+          type: integer
+        updatedAt:
+            type: string
+            format: dateTime
+        createdAt:
+          type: string
+          format: dateTime
+    BidInput:
+      required:
+        - amount
+      properties:
+        amount:
+          type: integer
+
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+    Login:
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+    LoginResponse:
+      required:
+        - token
+      properties:
+        token:
+          type: string

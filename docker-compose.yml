@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  redis:
+    image: "redis:4.0.10"
+    ports:
+      - "6379:6379"
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      POSTGRES_DATABASE: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+
+  api:
+    image: "node:10"
+    user: "node"
+    depends_on:
+      - "db"
+      - "redis"
+    working_dir: /home/node/api
+    volumes:
+      - ./:/home/node/api
+    links:
+      - "db:database"
+      - "redis:redis"
+    env_file: ./.env
+    environment:
+      DB_HOST: database
+    ports:
+       - "${API_PORT}:${API_PORT}"
+    depends_on:
+      - db
+    command: ./wait-for-it.sh -t 0 db:${DB_PORT} -- ./wait-for-it.sh -t 0 redis:${REDIS_PORT} -- npm start
