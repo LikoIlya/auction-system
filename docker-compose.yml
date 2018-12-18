@@ -34,7 +34,8 @@ services:
     environment:
       DB_HOST: database
     ports:
+       - "${API_FRONT_PORT}:${API_FRONT_PORT}"
        - "${API_PORT}:${API_PORT}"
     depends_on:
       - db
-    command: ./wait-for-it.sh -t 0 db:${DB_PORT} -- ./wait-for-it.sh -t 0 redis:${REDIS_PORT} -- npm start
+    command: ./wait-for-it.sh -t 0 db:${DB_PORT} -- ./wait-for-it.sh -t 0 redis:${REDIS_PORT} -- npm run start

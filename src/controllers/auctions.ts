@@ -6,7 +6,9 @@ import { Auction } from '../entity/Auction';
 import { Bid } from '../entity/Bid';
 import { create, deleteById, getAll, patchById, readById } from './core';
 
-export const auctionGetAll = getAll(Auction);
+export const auctionGetAll = getAll(Auction, {
+  relations: ['bids', 'bids.updatedBy'],
+});
 export const auctionCreate = create(Auction);
 export const auctionFindById = readById(Auction, {
   relations: ['bids', 'bids.updatedBy'],
@@ -46,11 +48,11 @@ export const auctionCreateBid = async (context: Context) => {
     },
   });
 
-
   if (topBid && proposedBid <= topBid.amount) {
     context.body = {
       message: `${proposedBid} is not greater than ${topBid.amount}`,
     };
+    return;
   }
   // Update Bid
 
@@ -68,7 +70,9 @@ export const auctionCreateBid = async (context: Context) => {
   const createdBid = bidRepository.create(newBid);
 
   await bidRepository.save(createdBid);
-
+  const res = await bidRepository.findOne(createdBid.id, {
+    relations: ['updatedBy'],
+  });
   context.status = 201;
-  context.body = newBid;
+  context.body = res;
 };

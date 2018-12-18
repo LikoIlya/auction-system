@@ -35,6 +35,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /register:
+    post:
+      summary: Register a user
+      operationId: userCreate
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /users:
     get:
       summary: List all Users
@@ -48,26 +69,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Users"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    post:
-      summary: Create a User
-      operationId: userCreate
-      tags:
-        - Users
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserInput'
-      responses:
-        '201':
-          description: Null response
         default:
           description: unexpected error
           content:
@@ -363,7 +364,7 @@ components:
           type: integer
         name:
           type: string
-        desscription:
+        description:
           type: string
         location:
           type: string
@@ -395,7 +396,7 @@ components:
           type: integer
         name:
           type: string
-        desscription:
+        description:
           type: string
         location:
           type: string

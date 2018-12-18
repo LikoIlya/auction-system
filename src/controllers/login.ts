@@ -26,5 +26,5 @@ export const findByEmail = async (context: Context) => {
   logger.info(token);
 
   // return loaded entity
-  context.body = { token };
+  context.body = { token, firstName: user.firstName, lastName: user.lastName };
 };
