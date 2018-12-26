@@ -26,7 +26,8 @@ export default function dashboardView(state, emit) {
         <div class="container"><div class="row text-center"><!-- Auctions -->
             ${auctions && auctions.map(auc => html`
               <div class="col-4 justify-content-md-center mb-4">
-              <div class="card card-image d-flex flex-column text-white " style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
+              <div class="card card-image d-flex flex-column text-white " style="background-image: url(${auc.img}); background-repeat: no-repeat;
+  background-size: cover;">
               <div class="card-overlay">
               <div style="align-items: flex-end;" class="card-img-top" >
 

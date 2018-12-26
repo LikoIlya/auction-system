@@ -54,6 +54,16 @@ export default function newAuctionView(state, emit) {
           required=""
         />
         <div class="mb-3"></div>
+        <label for="inputImg" class="sr-only">Image URL</label>
+        <input
+          type="text"
+          name="img"
+          id="inputImg"
+          class="form-control"
+          placeholder="Image URL"
+          required=""
+        />
+        <div class="mb-3"></div>
         <div class="mb-3"></div>
         <label for="inputEndTime" class="sr-only">End time</label>
         <input

@@ -22,6 +22,8 @@ export class Auction {
 
   @Column() public location: string;
 
+  @Column() public img: string;
+
   @Column({ type: 'timestamp with time zone' })
   public endTime: string;
 

@@ -17,7 +17,8 @@ export default function auctionView(state, emit) {
           background: rgba(0, 0, 0, 0.5);
         }</style> ${headerView(state, emit)} ${auc ? html`
               <div class="container"><!-- Jumbotron Header -->
-                <div class="jumbotron text-white" style="background-size:cover; background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);"><div class="card-overlay text-center rounded"><h1 class="display-4">${auc.name}</h1>
+                <div class="jumbotron text-white" style="background-size:cover; background-image: url(${auc.img});background-repeat: no-repeat;
+  background-size: cover;"><div class="card-overlay text-center rounded"><h1 class="display-4">${auc.name}</h1>
                     <hr class="my-2" />
                     <p class="lead">${auc.description}</p></div></div>
 

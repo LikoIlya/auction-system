@@ -8,7 +8,7 @@ import * as jwt from 'koa-jwt';
 import * as morgan from 'koa-morgan';
 import * as respond from 'koa-respond';
 // import { default as serve } from 'koa-static';
-//import * as path from 'path';
+// import * as path from 'path';
 import { createConnection } from 'typeorm';
 
 import { envVars, generateDbConfig } from './config';
