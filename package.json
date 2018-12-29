@@ -27,14 +27,9 @@
     "typescript": "~2.9.1"
   },
   "scripts": {
-    "clean": "rimraf coverage build tmp",
-    "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.release.json",
     "watch": "tsc -w -p tsconfig.release.json",
     "lint": "tslint -t stylish --project \"tsconfig.json\"",
-    "pretest": "npm run lint",
-    "test": "jest --coverage --color",
-    "test:watch": "jest --watch",
     "prestart": "npm run build",
     "serve": "serve static",
     "start": "concurrently --kill-others \"npm run start-backend\" \"npm run serve\"",
