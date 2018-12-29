@@ -11,29 +11,27 @@ const envVarsSchema = joi
       .allow(['development', 'production', 'test', 'provision'])
       .default('development'),
     API_PORT: joi.number().default(8080),
+    DATABASE_URL: joi.
+      string()
+      .description('Postgres for Heroku'),
     DB_HOST: joi
       .string()
-      .required()
       .description('Postgres Hostname'),
     DB_NAME: joi
       .string()
-      .required()
       .description('Postgres Database Name'),
     DB_USER: joi
       .string()
-      .required()
       .description('Postgres Username'),
     DB_PASSWORD: joi
       .string()
-      .required()
       .description('Postgres Password'),
     DB_PORT: joi
       .number()
       .default(5432)
       .description('Postgres Port'),
-    REDIS_HOST: joi
+    REDIS_URL: joi
       .string()
-      .required()
       .description('Redis Hostname'),
     REDIS_PORT: joi
       .number()
@@ -41,7 +39,7 @@ const envVarsSchema = joi
       .description('Redis Port'),
     JWT_SECRET: joi
       .string()
-      .required()
+      .default('my_super_secret')
       .description('Secret for JSON Web Token'),
   })
   .unknown()

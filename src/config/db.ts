@@ -6,28 +6,20 @@ import { User } from '../entity/User';
 
 export const generateDbConfig = (config: any) => {
   const {
-    DB_HOST,
-    DB_NAME,
-    DB_USER,
-    DB_PASSWORD,
-    DB_PORT,
-    REDIS_HOST,
+    DATABASE_URL,
+    REDIS_URL,
     REDIS_PORT,
   } = config;
 
   const dbConfig: ConnectionOptions = {
     type: 'postgres',
-    host: DB_HOST,
-    database: DB_NAME,
-    port: DB_PORT,
-    username: DB_USER,
-    password: DB_PASSWORD,
+    url: DATABASE_URL,
     entities: [User, Auction, Bid],
     synchronize: true,
     cache: {
       type: 'redis',
       options: {
-        host: REDIS_HOST,
+        host: REDIS_URL,
         port: REDIS_PORT,
       },
     },
