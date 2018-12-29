@@ -14,29 +14,25 @@ const envVarsSchema = joi
     DATABASE_URL: joi.
       string()
       .description('Postgres for Heroku'),
-    // DB_HOST: joi
-    //   .string()
-    //   .description('Postgres Hostname'),
-    // DB_NAME: joi
-    //   .string()
-    //   .description('Postgres Database Name'),
-    // DB_USER: joi
-    //   .string()
-    //   .description('Postgres Username'),
-    // DB_PASSWORD: joi
-    //   .string()
-    //   .description('Postgres Password'),
-    // DB_PORT: joi
-    //   .number()
-    //   .default(5432)
-    //   .description('Postgres Port'),
+    DB_HOST: joi
+      .string()
+      .description('Postgres Hostname'),
+    DB_NAME: joi
+      .string()
+      .description('Postgres Database Name'),
+    DB_USER: joi
+      .string()
+      .description('Postgres Username'),
+    DB_PASSWORD: joi
+      .string()
+      .description('Postgres Password'),
+    DB_PORT: joi
+      .number()
+      .default(5432)
+      .description('Postgres Port'),
     REDIS_URL: joi
       .string()
-      .description('Redis Hostname'),
-    REDIS_PORT: joi
-      .number()
-      .default(6379)
-      .description('Redis Port'),
+      .description('Redis url'),
     JWT_SECRET: joi
       .string()
       .default('my_super_secret')

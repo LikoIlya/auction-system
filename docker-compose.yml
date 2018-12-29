@@ -10,11 +10,11 @@ services:
     image: postgres
     restart: always
     ports:
-      - "${DB_PORT}:${DB_PORT}"
+      - "5432:5432"
     environment:
-      POSTGRES_DATABASE: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DATABASE: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
       - ./db/seed.sql:/docker-entrypoint-initdb.d/seed.sql
 
@@ -38,4 +38,4 @@ services:
        - "${API_PORT}:${API_PORT}"
     depends_on:
       - db
-    command: ./wait-for-it.sh -t 0 db:${DB_PORT} -- ./wait-for-it.sh -t 0 redis:${REDIS_PORT} -- npm run start
+    command: ./wait-for-it.sh -t 0 db:5432 -- ./wait-for-it.sh -t 0 redis:6379 -- npm run start

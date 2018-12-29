@@ -7,8 +7,7 @@ import { User } from '../entity/User';
 export const generateDbConfig = (config: any) => {
   const {
     DATABASE_URL,
-    REDIS_URL,
-    REDIS_PORT,
+    REDIS_URL
   } = config;
 
   const dbConfig: ConnectionOptions = {
@@ -19,8 +18,7 @@ export const generateDbConfig = (config: any) => {
     cache: {
       type: 'redis',
       options: {
-        host: REDIS_URL,
-        port: REDIS_PORT,
+        url: REDIS_URL
       },
     },
   };

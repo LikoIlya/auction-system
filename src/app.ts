@@ -7,8 +7,8 @@ import * as compose from 'koa-compose';
 import * as jwt from 'koa-jwt';
 import * as morgan from 'koa-morgan';
 import * as respond from 'koa-respond';
-// import { default as serve } from 'koa-static';
-// import * as path from 'path';
+import * as serve from 'koa-static';
+import * as path from 'path';
 import { createConnection } from 'typeorm';
 
 import { envVars, generateDbConfig } from './config';
@@ -20,7 +20,7 @@ export const loadApp = () => {
   const app = new Koa();
   const secret = envVars.JWT_SECRET;
 
-  // app.use(serve(path.join(__dirname, "../static")));
+   app.use(serve(path.join(__dirname, "../static")));
 
   /* Global Middlewares */
   const middlewares = [
